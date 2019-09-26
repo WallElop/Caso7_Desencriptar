@@ -13,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AESDecrypt {
 	
-	private static SecretKeySpec secretKey;// = "29dh120_dk1_3";
+	private static SecretKeySpec secretKey;
 	private static ArrayList<String> letras = new ArrayList<String>();
 	private static ArrayList<Integer> numeros = new ArrayList<Integer>();
 	private static ArrayList<ConjuntoLetras> conjuntoLetras = new ArrayList<ConjuntoLetras>();
@@ -38,15 +38,13 @@ public class AESDecrypt {
 
 	public static String decrypt(String strToDecrypt) {
 		try {
-			// setKey(secret);
 			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
-			return new String(cipher.doFinal(Base64.getDecoder().decode(
-					strToDecrypt)));
+			return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
 		} catch (Exception e) {
-			System.out.println("Error");
+			return null;
 		}
-		return null;
+		
 	}
 	
 	public void cargarLetrasAndNumeros() {
@@ -61,26 +59,6 @@ public class AESDecrypt {
 		Collections.shuffle(numeros);
 	}
 	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public void probarTodosLosConjuntos() {
 		String respuesta = "";
 		while(respuesta == "") {
@@ -93,16 +71,17 @@ public class AESDecrypt {
 	
 	public String encontrarClave() {
 		ConjuntoLetras miConjuntoLetras = obtenerConjuntoLetras();
-		ConjuntoNumeros miConjuntoNumeros = obtenerConjuntoNumeros();
+//		ConjuntoNumeros miConjuntoNumeros = obtenerConjuntoNumeros();
 		
 		for(int i = 0; i<miConjuntoLetras.getLetras().size();i++) {
-			for(int j = 0; j<miConjuntoNumeros.getNumeros().size(); j++) {
-				String miClave = "29dh120"+ miConjuntoLetras.getLetras().get(i) +"dk1"+miConjuntoNumeros.getNumeros().get(j)+"3";
+			for(int j = 0; j<numeros.size(); j++) {
+				String miClave = "29dh120"+ miConjuntoLetras.getLetras().get(i) +"dk1"+numeros.get(j)+"3";
 				setKey(miClave);
 				String respuesta = decrypt(textoEncriptado);
+				intentos++;
 				if( respuesta != null) {
 					String msg = "Posible letra: "+miConjuntoLetras.getLetras().get(i)+"\n";
-					msg+= "Posible numero: "+miConjuntoNumeros.getNumeros().get(j)+"\n";
+					msg+= "Posible numero: "+numeros.get(j)+"\n";
 					msg+="mensaje: "+respuesta;
 					return msg;
 				}
@@ -118,6 +97,7 @@ public class AESDecrypt {
 				respuesta = conjuntoLetras.get(i);
 			}
 		}
+		respuesta.setProbabilidadConjunto(0);
 		return respuesta;
 	}
 	
@@ -135,20 +115,26 @@ public class AESDecrypt {
 		int divisionInicioLetras = 0;
 		//Se hace una division del conjunto a la mitad para que al menos se creen 2 subconjuntos
 		int divisionFinalLetras = (int)(Math.random()*13);
-		int divisionInicioNumeros = 0;
-		int divisionFinalNumeros = (int)(Math.random()*5);
+//		int divisionInicioNumeros = 0;
+//		int divisionFinalNumeros = (int)(Math.random()*5);
 		while(divisionInicioLetras<26) {
 			ConjuntoLetras conjunto = new ConjuntoLetras();
 			conjunto.agregarLetra(letras, divisionInicioLetras, divisionFinalLetras);
+			double hola = divisionFinalLetras-divisionInicioLetras;
+			conjunto.setProbabilidadConjunto(1d/hola);
 			divisionInicioLetras = divisionFinalLetras;
-			divisionFinalLetras += (int)(Math.random()*(26-divisionInicioLetras));
+			divisionFinalLetras += (int)(Math.random()*(26-divisionInicioLetras) + 1);
+			conjuntoLetras.add(conjunto);
 		}
-		while(divisionInicioNumeros<10) {
-			ConjuntoNumeros conjunto = new ConjuntoNumeros();
-			conjunto.agregarNumeros(numeros, divisionInicioNumeros, divisionFinalNumeros);
-			divisionInicioNumeros = divisionFinalNumeros;
-			divisionFinalNumeros += (int)(Math.random()*(10-divisionInicioNumeros));
-		}
+//		while(divisionInicioNumeros<10) {
+//			ConjuntoNumeros conjunto = new ConjuntoNumeros();
+//			conjunto.setProbabilidadConjunto(1/(divisionFinalNumeros-divisionInicioNumeros));
+//			conjunto.agregarNumeros(numeros, divisionInicioNumeros, divisionFinalNumeros);
+//			divisionInicioNumeros = divisionFinalNumeros;
+//			divisionFinalNumeros += (int)(Math.random()*(10-divisionInicioNumeros)+1);
+//			conjuntoNumeros.add(conjunto);
+//			
+//		}
 	}
 
 
