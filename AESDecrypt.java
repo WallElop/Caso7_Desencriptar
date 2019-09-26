@@ -16,6 +16,9 @@ public class AESDecrypt {
 	private static SecretKeySpec secretKey;// = "29dh120_dk1_3";
 	private static ArrayList<String> letras = new ArrayList<String>();
 	private static ArrayList<Integer> numeros = new ArrayList<Integer>();
+	private static ArrayList<ConjuntoLetras> conjuntoLetras = new ArrayList<ConjuntoLetras>();
+	private static ArrayList<ConjuntoNumeros> conjuntoNumeros = new ArrayList<ConjuntoNumeros>();
+	
 
 	public static void setKey(String myKey) {
 		MessageDigest sha;
@@ -57,7 +60,25 @@ public class AESDecrypt {
 		Collections.shuffle(numeros);
 	}
 
-
+	public void separarConjuntos() {
+		int divisionInicioLetras = 0;
+		//Se hace una division del conjunto a la mitad para que al menos se creen 2 subconjuntos
+		int divisionFinalLetras = (int)(Math.random()*13);
+		int divisionInicioNumeros = 0;
+		int divisionFinalNumeros = (int)(Math.random()*5);
+		while(divisionInicioLetras<26) {
+			ConjuntoLetras conjunto = new ConjuntoLetras();
+			conjunto.agregarLetra(letras, divisionInicioLetras, divisionFinalLetras);
+			divisionInicioLetras = divisionFinalLetras;
+			divisionFinalLetras += (int)(Math.random()*(26-divisionInicioLetras));
+		}
+		while(divisionInicioNumeros<10) {
+			ConjuntoNumeros conjunto = new ConjuntoNumeros();
+			conjunto.agregarNumeros(numeros, divisionInicioNumeros, divisionFinalNumeros);
+			divisionInicioNumeros = divisionFinalNumeros;
+			divisionFinalNumeros += (int)(Math.random()*(10-divisionInicioNumeros));
+		}
+	}
 
 
 
