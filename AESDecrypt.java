@@ -19,7 +19,8 @@ public class AESDecrypt {
 	private static ArrayList<ConjuntoLetras> conjuntosDeLetras = new ArrayList<ConjuntoLetras>();
 	private static ArrayList<ConjuntoNumeros> conjuntosDenumeros = new ArrayList<ConjuntoNumeros>();
 	private static String textoEncriptado ="xZwM7BWIpSjYyGFr9rhpEa+cYVtACW7yQKmyN6OYSCv0ZEg9jWbc6lKzzCxRSSIvOvlimQZBMZOYnOwiA9yy3YU8zk4abFSItoW6Wj0ufQ0=" ;
-
+	private static int intentos = 0;
+	
 	public static void setKey(String myKey) {
 		MessageDigest sha;
 		try {
@@ -60,6 +61,15 @@ public class AESDecrypt {
 		Collections.shuffle(numeros);
 	}
 	
+	public void probarTodosLosConjuntos() {
+		String respuesta = "";
+		while(respuesta == "") {
+			respuesta = encontrarClave();
+		}
+		System.out.println(respuesta);
+		System.out.println(intentos);
+	}
+	
 	
 	public String encontrarClave() {
 		ConjuntoLetras miConjuntoLetras = obtenerConjuntoLetras();
@@ -78,7 +88,7 @@ public class AESDecrypt {
 				}
 			}
 		}
-		return "No se encontró en esta combinacion de conjuntos";
+		return "";
 	}
 	
 	public ConjuntoLetras obtenerConjuntoLetras() {
