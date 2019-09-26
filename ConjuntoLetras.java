@@ -6,8 +6,23 @@ public class ConjuntoLetras {
 	ArrayList<String> letras = new ArrayList<String>();
 	double probabilidadConjunto = 0.0;
 	
-	public void agregarLetra(String pLetras) {
-		letras.add(pLetras);
+	public void agregarLetra(ArrayList<String> pLetras,int pPosInicio, int posFinal) {
+		while(pPosInicio<posFinal) {
+			letras.add(pLetras.get(pPosInicio)) ;
+			pPosInicio++;
+		}
 	}
+	
+	public double getProbabilidadConjunto() {
+		return probabilidadConjunto;
+	}
+
+	public void setProbabilidadConjunto(double probabilidadConjunto) {
+		this.probabilidadConjunto = probabilidadConjunto;
+	}
+	
+//	public 
+	
+	
 	
 }

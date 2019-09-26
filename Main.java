@@ -9,7 +9,6 @@ import java.util.Arrays;
 import javax.crypto.Cipher;
 
 public class Main {
-
 	private static SecretKeySpec secretKey;// = "29dh120_dk1_3";
 
 	/**
