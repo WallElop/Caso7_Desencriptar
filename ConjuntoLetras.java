@@ -20,6 +20,16 @@ public class ConjuntoLetras {
 	public void setProbabilidadConjunto(double probabilidadConjunto) {
 		this.probabilidadConjunto = probabilidadConjunto;
 	}
+
+	public ArrayList<String> getLetras() {
+		return letras;
+	}
+
+	public void setLetras(ArrayList<String> letras) {
+		this.letras = letras;
+	}
+	
+	
 	
 //	public 
 	
