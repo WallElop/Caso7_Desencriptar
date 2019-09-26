@@ -21,4 +21,14 @@ public class ConjuntoNumeros {
 		this.probabilidadConjunto = probabilidadConjunto;
 	}
 
+	public ArrayList<Integer> getNumeros() {
+		return numeros;
+	}
+
+	public void setNumeros(ArrayList<Integer> numeros) {
+		this.numeros = numeros;
+	}
+	
+	
+
 }

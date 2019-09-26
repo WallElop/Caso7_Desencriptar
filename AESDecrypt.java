@@ -18,8 +18,8 @@ public class AESDecrypt {
 	private static ArrayList<Integer> numeros = new ArrayList<Integer>();
 	private static ArrayList<ConjuntoLetras> conjuntoLetras = new ArrayList<ConjuntoLetras>();
 	private static ArrayList<ConjuntoNumeros> conjuntoNumeros = new ArrayList<ConjuntoNumeros>();
-	
-
+	private static String textoEncriptado ="xZwM7BWIpSjYyGFr9rhpEa+cYVtACW7yQKmyN6OYSCv0ZEg9jWbc6lKzzCxRSSIvOvlimQZBMZOYnOwiA9yy3YU8zk4abFSItoW6Wj0ufQ0=" ;
+	private static int intentos = 0;
 	
 	public static void setKey(String myKey) {
 		MessageDigest sha;
@@ -59,6 +59,76 @@ public class AESDecrypt {
 		}	
 		Collections.shuffle(letras);
 		Collections.shuffle(numeros);
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void probarTodosLosConjuntos() {
+		String respuesta = "";
+		while(respuesta == "") {
+			respuesta = encontrarClave();
+		}
+		System.out.println(respuesta);
+		System.out.println(intentos);
+	}
+	
+	
+	public String encontrarClave() {
+		ConjuntoLetras miConjuntoLetras = obtenerConjuntoLetras();
+		ConjuntoNumeros miConjuntoNumeros = obtenerConjuntoNumeros();
+		
+		for(int i = 0; i<miConjuntoLetras.getLetras().size();i++) {
+			for(int j = 0; j<miConjuntoNumeros.getNumeros().size(); j++) {
+				String miClave = "29dh120"+ miConjuntoLetras.getLetras().get(i) +"dk1"+miConjuntoNumeros.getNumeros().get(j)+"3";
+				setKey(miClave);
+				String respuesta = decrypt(textoEncriptado);
+				if( respuesta != null) {
+					String msg = "Posible letra: "+miConjuntoLetras.getLetras().get(i)+"\n";
+					msg+= "Posible numero: "+miConjuntoNumeros.getNumeros().get(j)+"\n";
+					msg+="mensaje: "+respuesta;
+					return msg;
+				}
+			}
+		}
+		return "";
+	}
+	
+	public ConjuntoLetras obtenerConjuntoLetras() {
+		ConjuntoLetras respuesta = conjuntoLetras.get(0);
+		for(int i=1; i<conjuntoLetras.size();i++) {
+			if(respuesta.getProbabilidadConjunto()<conjuntoLetras.get(i).getProbabilidadConjunto()) {
+				respuesta = conjuntoLetras.get(i);
+			}
+		}
+		return respuesta;
+	}
+	
+	public ConjuntoNumeros obtenerConjuntoNumeros() {
+		ConjuntoNumeros respuesta = conjuntoNumeros.get(0);
+		for(int i=1; i<conjuntoLetras.size();i++) {
+			if(respuesta.getProbabilidadConjunto()<conjuntoNumeros.get(i).getProbabilidadConjunto()) {
+				respuesta = conjuntoNumeros.get(i);
+			}
+		}
+		return respuesta;
 	}
 
 	public void separarConjuntos() {
