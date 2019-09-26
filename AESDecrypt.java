@@ -61,6 +61,26 @@ public class AESDecrypt {
 		Collections.shuffle(numeros);
 	}
 	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void probarTodosLosConjuntos() {
 		String respuesta = "";
 		while(respuesta == "") {
