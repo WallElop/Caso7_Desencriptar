@@ -17,8 +17,6 @@ public class AESDecrypt {
 	private static SecretKeySpec secretKey;// = "29dh120_dk1_3";
 	private static ArrayList<String> letras = new ArrayList<String>();
 	private static ArrayList<Integer> numeros = new ArrayList<Integer>();
-//	private static String[] letras = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
-//	private static int[] numeros = {0,1,2,3,4,5,6,7,8,9,};
 
 	public static void setKey(String myKey) {
 		MessageDigest sha;
@@ -48,25 +46,26 @@ public class AESDecrypt {
 		return null;
 	}
 	
-//	public static void mezclar() {
-//		shuffleArray
-//		
-//	}
-	
 	public void cargarLetrasAndNumeros() {
-		letras.add("a");letras.add("b");letras.add("c");letras.add("d");letras.add("e");letras.add("f");
-		letras.add("g");letras.add("h");letras.add("i");letras.add("j");letras.add("k");letras.add("l");
-		letras.add("m");letras.add("n");letras.add("o");letras.add("p");letras.add("q");letras.add("r");
-		letras.add("s");letras.add("t");letras.add("u");letras.add("v");letras.add("w");letras.add("x");
-		letras.add("y");letras.add("z");
-		
-		numeros.add(0);numeros.add(1);numeros.add(2);numeros.add(3);numeros.add(4);numeros.add(5);
-		numeros.add(6);numeros.add(7);numeros.add(8);numeros.add(9);
-		
-		
+		String[] pLetras = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+		for(int i=0; i<26;i++) {
+			letras.add(pLetras[i]);
+		}
+		for(int i = 0; i<10 ; i++ ){
+			numeros.add(i);
+		}	
 		Collections.shuffle(letras);
 		Collections.shuffle(numeros);
-		
 	}
-	
+
+
+
+
+
 }
+
+
+
+
+
+
