@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class ConjuntoLetras {
 	ArrayList<String> letras = new ArrayList<String>();
+	//Probabilidad de que la letra esté en el conjunto.
 	double probabilidadConjunto = 0.0;
 	
 	public void agregarLetra(ArrayList<String> pLetras,int pPosInicio, int posFinal) {
@@ -28,11 +29,5 @@ public class ConjuntoLetras {
 	public void setLetras(ArrayList<String> letras) {
 		this.letras = letras;
 	}
-	
-	
-	
-//	public 
-	
-	
 	
 }
